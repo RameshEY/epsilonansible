@@ -1,0 +1,28 @@
+---
+ - hosts: ok   #   play first for remote machine 
+   remote_user: ec2-user
+   become: true
+
+   tasks:
+    - name:  installing  httpd
+      yum: name=httpd  state=present
+      register: x
+
+    - name: showing
+      debug: var=x
+
+
+
+ - hosts: localhost   # play 2 for local machine 
+   remote_user: ec2-user
+   become: true
+   
+   tasks:
+    - name:  installing  httpd 
+      yum: name=ftp  state=present
+      register: y
+   
+    - name: showing 
+      debug: var=y
+
+

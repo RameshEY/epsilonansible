@@ -1,0 +1,17 @@
+---
+ - hosts: localhost 
+   tasks: 
+    - name: running  a  command
+      command: whoami
+      register: x
+
+    - name: showing output  
+      debug: var=x
+
+    - name: want to get only username part from above output 
+      debug: msg="my current user name is  {{ x.stdout }}"
+
+    
+
+
+

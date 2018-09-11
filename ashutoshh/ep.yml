@@ -1,0 +1,26 @@
+---
+ - hosts: localhost
+   become: true
+   gather_facts: yes   # this is by default activated 
+   remote_user: ec2-user
+   vars:
+    - x: httpd
+   tasks:
+    - name: installing  "{{ x }}"
+      yum: name="{{ x }}"
+      tags:
+       - install 
+
+
+    - name:  starting service of  "{{ x }}"
+      service: name="{{ x }}" state=started enabled=yes
+      register: out
+
+    - name: print service  
+      debug:  var=out
+
+    - name: storing out  to file 
+      copy:  content="{{ out }}" dest=/var/www/html/hello.txt  
+
+
+

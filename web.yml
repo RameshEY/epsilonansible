@@ -1,12 +1,13 @@
 ---
  - hosts: localhost 
    become: true
+   gather_facts: yes
    tasks: 
     - name: installing  apache web server 
       yum: name=httpd state=present
 
     - name: create  a  web page with some data
-      copy: content="hello guys" dest=/var/www/html/index.html 
+      copy: content="hello guys my os name is {{ ansible_distribution }}" dest=/var/www/html/index.html 
       tags:
        - always 
  

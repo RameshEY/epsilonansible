@@ -1,0 +1,30 @@
+---
+ - hosts: localhost
+   become: true
+   tasks:
+    - name: getting  all information 
+      ec2_instance_facts:
+      register: ec2out
+
+    - name: printing  all information 
+      debug: var=ec2out
+
+
+    - name:  only print  arch  of  ec2 instances 
+      debug: msg="my process arch is  {{ ec2out.instances[0].block_device_mappings[0].ebs.volume_id }}"
+
+    - name:  printin  os arch 
+      debug:  msg="hello Os arch  is  {{ ec2out.instances[0].architecture }}"
+
+
+
+    - name: hosting  arch and  EBS volume to web  server  
+      debug:  msg=" my os arch is {{ ec2out.instances[0].architecture }} and volume id is {{ ec2out.instances[0].block_device_mappings[0].ebs.volume_id }}"
+    
+
+
+
+
+
+
+    
