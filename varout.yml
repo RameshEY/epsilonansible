@@ -1,0 +1,29 @@
+---
+ - hosts: localhost 
+   become: true
+   vars_files:
+    - myvar.yml 
+
+   tasks: 
+    - name: installing  "{{ z }}" web server 
+      yum: name="{{ z }}" state=present
+      tags:
+       - install
+
+    - name: uninstalling  "{{ z }}" web server 
+      yum: name="{{ z }}" state=absent
+      tags:
+       - uninstall 
+
+
+    - name: create  a  web page with some data
+      copy: content="hello ftp " dest=/var/ftp/pub/a.txt
+ 
+    - name: starting "{{ z }}"  service
+      service: name="{{ z }}" state=started enabled=yes
+
+
+    
+
+
+

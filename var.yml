@@ -1,0 +1,20 @@
+---
+ - hosts: localhost 
+   become: true
+   vars:
+    - x: vsftpd 
+   tasks: 
+    - name: installing  "{{ x }}" web server 
+      yum: name="{{ x }}" state=present
+
+    - name: create  a  web page with some data
+      copy: content="hello ftp " dest=/var/ftp/pub/a.txt
+ 
+    - name: starting "{{ x }}"  service
+      service: name="{{ x }}" state=started enabled=yes
+
+
+    
+
+
+

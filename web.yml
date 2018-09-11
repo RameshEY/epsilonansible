@@ -7,9 +7,14 @@
 
     - name: create  a  web page with some data
       copy: content="hello guys" dest=/var/www/html/index.html 
+      tags:
+       - always 
  
     - name: starting httpd  service
       service: name=httpd state=started enabled=yes
+      tags:
+       - a
+       - b
 
 
     
