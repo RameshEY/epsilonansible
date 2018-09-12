@@ -1,0 +1,13 @@
+---
+ - hosts: all
+   remote_user: ec2-user
+   become: true
+  
+   tasks:
+    - name: installing  nfs server  
+      yum: name=nfs-utils state=present 
+
+    - name:  creating one  sample  file for  nfs 
+      template: src=local.j2  dest=/etc/exports  
+
+

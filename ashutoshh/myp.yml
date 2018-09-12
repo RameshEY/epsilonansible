@@ -1,0 +1,24 @@
+---
+ - hosts: all
+   remote_user: ec2-user
+   become: true
+  
+   tasks:
+    - name: block1
+      block:
+       - name: running  shell script 
+         shell: dateee
+         register: out
+       
+       - name: printing dateee msg
+         debug: var=out
+      when: changed == "true"
+
+    - name: creating rescue
+      rescue:
+       - name: hello world with error 
+         debug: msg="okey ANsible"
+
+
+
+

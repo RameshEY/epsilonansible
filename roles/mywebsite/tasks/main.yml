@@ -1,0 +1,12 @@
+---
+# tasks file for mywebsite
+ - name: installing  "{{ x }}" 
+   yum: name="{{ x }}" 
+
+ - name: staring  "{{ x }}"
+   service: name=httpd  state=started
+
+ - name: copying  to  httpd server 
+   copy: src=abc.html  dest=/var/www/html/index.html mode=0644
+
+

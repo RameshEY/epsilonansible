@@ -1,0 +1,35 @@
+---
+ - hosts: all
+   remote_user: ec2-user
+   become: true
+
+   tasks:
+    - name: defining block  here  RPM based system 
+      block:
+       - name: installing  httpd 
+         yum: name=httpd  state=present
+ 
+       - name: starting  service 
+         service: name=httpd state=restarted enabled=yes
+
+       - name: making one file of index.html 
+         copy: content="hello this is {{ ansible_distribution }} os" dest=/var/www/html/index.html  
+
+      when: ansible_distribution == "RedHat"
+
+
+    - name: defining block  here  Debian  based system 
+      block:
+       - name: installing  apache
+         yum: name=apache2  state=present
+ 
+       - name: starting  service 
+         service: name=apache2 state=restarted enabled=yes
+
+       - name: making one file of index.html 
+         copy: content="hello this is {{ ansible_distribution }} os" dest=/var/www/html/index.html  
+
+      when: ansible_distribution == "Debian"
+
+  
+  

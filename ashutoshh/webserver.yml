@@ -11,16 +11,15 @@
       tags:
        - install 
 
+    - name: copying  configuration files to target 
+      template: src=httpd.j2 dest=/etc/httpd/conf/httpd.conf  
+      notify: 
+       - start http
 
-    - name:  starting service of  "{{ x }}"
-      service: name="{{ x }}" state=started enabled=yes
-      register: out
+    - name: hello 
+      debug: msg="hello world"
 
-    - name: print service  
-      debug:  var=out
-
-    - name: storing out  to file 
-      copy:  content="{{ out }}" dest=/var/www/html/hello.txt  
-
-
-
+    
+   handlers:
+    - name: start http
+      service: name=httpd  state=restarted enabled=yes

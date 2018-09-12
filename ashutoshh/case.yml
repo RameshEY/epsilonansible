@@ -1,0 +1,23 @@
+---
+ - hosts: all
+   remote_user: ec2-user
+   become: true
+
+   tasks:
+    - name: install httpd
+      yum:  name=httpd  state=present
+      when: ansible_distribution ==  "RedHat"
+
+    - name: apache2  ubuntu based
+      apt: name=apache2  state=present 
+      when: ansible_distribution ==  "Ubuntu"
+
+    - name: starting  service on redhat based system  
+      service:  name=httpd state=started  enabled=yes
+      when: ansible_distribution ==  "RedHat"
+
+    - name: starting  service of apache on ubuntu
+      service: name=apache2  state=started  enabled=yes 
+      when: ansible_distribution ==  "Ubuntu"
+
+
