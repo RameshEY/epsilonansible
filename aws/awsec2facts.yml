@@ -1,0 +1,23 @@
+---
+ - hosts: localhost
+   tasks:
+    - name: getting facts
+      ec2_instance_facts: 
+      register: x
+
+    - name: deubug
+      debug: var=x
+
+
+    - name: print
+      debug: msg="{{ x.instances[0].instance_id }}"
+
+    - name: checking status
+      debug: msg="{{ x.instances[0].state.name }}"
+
+    - name: block device 
+      debug: msg="{{ x.instances[0].block_device_mappings[0] }}"
+
+
+    - name: block device install
+      debug: msg="{{ x.instances[1].instance_id }}"

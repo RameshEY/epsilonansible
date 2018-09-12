@@ -1,0 +1,18 @@
+---
+ - hosts: localhost
+  
+   tasks:
+    - name: creating rds mysql 
+      rds:
+       command: create
+       instance_name: new-database
+       db_engine: MySQL
+       size: 10
+       instance_type: db.t2.small
+       username: root
+       password: 1nsecure
+       region: ap-south-1
+       tags:
+        Environment: testing
+        Application: cms
+

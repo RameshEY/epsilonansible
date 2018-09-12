@@ -1,0 +1,17 @@
+---
+ - hosts: localhost
+   tasks:
+    - name: listing all bucket
+      aws_s3_bucket_facts:
+      register: x
+
+    - name: listing 
+      debug: var=x
+
+    - name: only bucket name
+      debug: msg="{{ x.ansible_facts.buckets[item].name }}"
+      with_items:
+       - 0
+       - 1
+
+

@@ -1,0 +1,13 @@
+---
+ - hosts: localhost
+   tasks:
+    - name: getting facts
+      ec2_remote_facts: 
+       filters:
+        instance-state-name: running 
+       region: ap-south-1
+      register: x
+
+    - name: print
+      debug: var=x
+

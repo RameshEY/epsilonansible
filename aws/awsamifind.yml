@@ -1,0 +1,26 @@
+---
+ - hosts: localhost
+   tasks:
+    - name: finding ami of ubuntu
+      ec2_ami_find:
+       #name: ubuntu-14_04-grails-tomcat-8-morph.0.1
+       name: ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-20180814
+       region: ap-south-1
+      register: ami
+
+    - name: showing ubuntu based AMI
+      debug: msg="ami ID {{ ami.results[0].ami_id  }}"
+       
+    - name: launching  instance on behalf of  {{ ami }}
+      ec2: 
+       key_name: awsagain
+       instance_type: t2.micro
+       image: "{{ ami.results[0].ami_id }}"
+       wait: yes
+       count: 1
+       #assign_public_ip: yes
+       region: ap-south-1
+       
+        
+ 
+       

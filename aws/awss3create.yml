@@ -1,0 +1,30 @@
+---
+ - hosts: localhost
+   
+   tasks:
+    - name: creating bucket
+      aws_s3:
+       bucket: adhocnetworksbucket
+       mode: create
+       permission: public-read
+       
+       
+    - name: List keys simple
+      aws_s3:
+       bucket: adhocnetworksbucket
+       mode: list
+       
+    - name: Simple PUT operation
+      aws_s3:
+       bucket: adhocnetworksbucket
+       object: /my/web/index.html
+       src: /tmp/index.html
+       mode: put
+       permission: public-read
+
+    - name: delete buck and all content 
+      aws_s3:
+       bucket: adhocnetworksbucket
+       mode: delete 
+      tags:
+       - delete

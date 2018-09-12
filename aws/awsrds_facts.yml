@@ -1,0 +1,15 @@
+---
+ - hosts: localhost
+   
+   tasks:
+    - name: rds facts
+      rds:
+       command: facts
+       region: ap-south-1
+       instance_name: new-database
+      register: rds_x
+
+    - name: printing rds facts
+      debug: var=rds_x
+
+

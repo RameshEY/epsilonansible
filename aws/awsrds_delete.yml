@@ -1,0 +1,10 @@
+---
+ - hosts: localhost
+  
+   tasks:
+    - name: deleting rds
+      rds:
+       command: delete
+       instance_name: new-database
+       region: ap-south-1
+

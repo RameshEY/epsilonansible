@@ -1,0 +1,26 @@
+---
+ - hosts: localhost
+   tasks:
+    - name: getting facts
+      ec2_instance_facts: 
+      register: x
+
+    - name: print
+      debug: msg="{{ x.instances[0].instance_id }}"
+
+    - name: print hello world 
+      debug: msg="Hello world people"
+      when: x.instances[0].state.name == "running"
+
+    - name:  stop instances
+      debug: msg="ec2 is stopped"
+      when: x.instances[0].state.name == "stopped"
+
+    - name: stopping  current instances
+      ec2: instance_ids="{{ x.instances[0].instance_id }}" state=stopped region=ap-south-1
+      when: x.instances[0].state.name == "running"
+
+
+    - name: starting instance
+      ec2: instance_ids="{{ x.instances[0].instance_id }}" state=running region=ap-south-1
+      when: x.instances[0].state.name == "stopped"
